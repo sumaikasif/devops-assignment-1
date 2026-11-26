@@ -193,3 +193,56 @@ Explanation:
  The second command uses `grep` to find "ERROR" lines and pipes them to `wc -l` to count them, which gives 5.
  The third command does the same for "WARN" lines, giving 2.
  The fourth command uses two `grep` commands piped together to show only the lines that contain both "ERROR" and "disk".
+
+## Part 2, Task 4
+
+Commands:
+```
+sleep 600 &
+ps
+kill 2120
+sleep 600 &
+kill -9 2169
+```
+
+
+Output:
+[1] 2120
+    PID TTY          TIME CMD
+    335 pts/0    00:00:00 bash
+   2120 pts/0    00:00:00 sleep
+   2134 pts/0    00:00:00 ps
+[1]+  Terminated                 sleep 600
+[1] 2169
+[1]+  Killed                     sleep 600
+
+Explanation:
+I started a background process using `sleep 600 &`. I found its PID (2120) using `ps` and 
+stopped it with a plain `kill` command, which sends the SIGTERM (15) signal, allowing the
+process to shut down gracefully. Then I started another process (PID 2169) and stopped it 
+with `kill -9`, which sends the SIGKILL (9) signal, forcefully terminating it immediately
+without cleanup. We use plain kill for normal shutdowns, and kill -9 only if a process is 
+stuck or unresponsive.
+
+## Part 2, Task 5
+
+Commands:
+```
+whoami
+groups
+sudo apt update
+```
+
+Output:
+sumaika
+sumaika adm cdrom sudo dip plugdev users
+Hit:1 http://archive.ubuntu.com/ubuntu resolute InRelease
+Get:2 http://security.ubuntu.com/ubuntu resolute-security InRelease [137 kB]
+...
+99 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+Explanation:
+It is safer to use `sudo` for single commands because it only gives temporary administrator
+privileges for that specific command. If we stay logged in as root, any accidental mistake 
+(like deleting important system files) could destroy the whole system. With `sudo`, the system
+stays protected when we are doing normal tasks.
