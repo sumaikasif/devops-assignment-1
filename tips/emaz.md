@@ -1,0 +1,3 @@
+- Commit small and often so mistakes are easy to spot.
+- Always review pull requests before merging.
+- Run a blameless post-mortem when something breaks.
