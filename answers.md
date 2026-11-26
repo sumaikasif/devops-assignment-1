@@ -169,3 +169,27 @@ Explanation:
 I created two files, report.txt and run.sh. I used the numeric form of chmod to set their permissions. 
 For report.txt, I used 640: The owner (6) has read and write, the group (4) has read only, and others (0) have no permissions.
 For run.sh, I used 754: The owner (7) has read, write, and execute, the group (5) has read and execute, and others (4) have read only.
+
+## Part 2, Task 3
+
+Commands:
+```
+printf 'INFO start\nERROR disk full\nINFO user login\nWARN slow response\nERROR timeout\nINFO user logout\nERROR disk full\nINFO backup done\nWARN memory high\nERROR timeout\nINFO restart\nERROR disk full\n' > server.log
+grep "ERROR" server.log | wc -l
+grep "WARN" server.log | wc -l
+grep "ERROR" server.log | grep "disk"
+```
+
+
+Output:
+5
+2
+ERROR disk full
+ERROR disk full
+ERROR disk full
+
+Explanation:
+ The first command creates a sample log file.
+ The second command uses `grep` to find "ERROR" lines and pipes them to `wc -l` to count them, which gives 5.
+ The third command does the same for "WARN" lines, giving 2.
+ The fourth command uses two `grep` commands piped together to show only the lines that contain both "ERROR" and "disk".
